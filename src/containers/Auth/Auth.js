@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Input from '../../components/UI/Forms/Input/Input';
 
@@ -117,4 +118,16 @@ class Auth extends Component {
     }
 }
 
-export default Auth;
+const mapStateToProps = state => {
+    return {
+        
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
