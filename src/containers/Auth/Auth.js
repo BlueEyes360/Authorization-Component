@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Input from '../../components/UI/Forms/Input/Input';
+import Loading from '../../components/UI/Loading/Loading';
+
 import * as actions from '../../store/actions/index';
 class Auth extends Component {
 
