@@ -7,12 +7,12 @@
     float: center;
 }
 
-#LoadingCard {
+.LoadingCard {
     position: fixed;
-    height: 15vmin;
-    width: 15vmin;
-    bottom: 44vh;
-    left: 44vw;
+    height: 14vh;
+    width: 14vh;
+    bottom: 43vh;
+    left: 43vw;
     background-color: lightgray;
     border-radius: 2vmin;
     opacity: .8;
@@ -21,7 +21,7 @@
     display: block;
 }
 
-#LoadingCard p {
+.LoadingCard p {
     justify-content: center;
     margin: 40% 30%;
 }

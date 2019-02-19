@@ -107,33 +107,55 @@ class Auth extends Component {
             })
         }
 
-        const form = (formElementsArray.map(formElement => (
-            <Input
-                key={formElement.id}
-                elementType={formElement.config.elementType}
-                elementConfig={formElement.config.elementConfig}
-                value={formElement.config.value}
-                invalid={!formElement.config.valid}
-                shouldValidate={formElement.config.validation}
-                touched={formElement.config.touched}
-                changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+        let form = (formElementsArray.map(formElement => (
+            <div>
+                <p>{formElement.config.placeholder}</p>
+                <Input
+                    className="form-control"
+                    key={formElement.id}
+                    elementType={formElement.config.elementType}
+                    elementConfig={formElement.config.elementConfig}
+                    value={formElement.config.value}
+                    invalid={!formElement.config.valid}
+                    shouldValidate={formElement.config.validation}
+                    touched={formElement.config.touched}
+                    changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+            </div>
         )))
 
-        return (
-            <div>
-                <form onSubmit={this.submitHandler}>
-                    {form}
-                    <button disabled={!this.state.formIsValid}>Create New User</button>
-                </form>
-                <button onClick={this.switchAuthModeHandler} >Switch to {this.state.isSignup ? 'Sign in' : 'Sign up'}</button>
-            </div>
+        if(this.props.loading) {
+            form = <Loading />
+        }
+
+        let errorMessage = null;
+
+        if(this.props.error) {
+            errorMessage = (
+                <p>{this.props.error.message}</p>
             );
+        }
+
+        return (
+            <div className="container">
+                <div className="row">
+                    <div className="col-sm-8">
+                        {errorMessage}
+                        <form onSubmit={this.submitHandler}>
+                            {form}
+                            <button className="btn btn-primary" disabled={!this.state.formIsValid}>{this.state.isSignup ? 'Create New User' : 'Log In'}</button>
+                        </form>
+                        <button className="btn btn-secondary" onClick={this.switchAuthModeHandler} >Switch to {this.state.isSignup ? 'Sign in' : 'Sign up'}</button>
+                    </div>
+                </div>
+            </div>
+        );
     }
 }
 
 const mapStateToProps = state => {
     return {
-        
+        loading: state.auth.loading,
+        error: state.auth.error
     }
 }
 

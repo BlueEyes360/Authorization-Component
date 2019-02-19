@@ -1,16 +1,16 @@
-.Input {
+/* .Input {
     width: 100%;
     padding: 10 px;
     box-sizing: border-box;
-}
+} */
 
-.Label {
+/* .Label {
     font-weight: bold;
     display: block;
     margin-bottom: 8px;
-}
+} */
 
-.InputElement {
+/* .InputElement {
     outline: none;
     border: 1px solid #ccc;
     background-color: white;
@@ -19,24 +19,14 @@
     display: block;
     width: 100%;
     box-sizing: border-box;
-}
+} */
 
-.InputElement:focus {
+/* .InputElement:focus {
     outline: none;
     background-color: #ccc;
-}
+} */
 
-.Invalid {
+/* .Invalid {
     border: 1px solid red;
     background-color: salmon;
-}
-
-button {
-    height: 8vmin;
-    width: 14vmin;
-}
-
-button:disabled {
-    /* background-color: salmon; */
-    cursor: not-allowed;
-}
+} */
