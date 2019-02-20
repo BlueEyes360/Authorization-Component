@@ -5,6 +5,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 import Input from '../../components/UI/Forms/Input/Input';
 import Loading from '../../components/UI/Loading/Loading';
@@ -43,7 +44,8 @@ class Auth extends Component {
             }
         },
         formIsValid: false,
-        isSignup: true
+        isSignup: false,
+        modalShow: false
     }
 
     checkValidity( value, rules ) {
@@ -101,7 +103,10 @@ class Auth extends Component {
         })
     }
 
+    modalClose = () => this.setState({modalShow: false});
+
     render() {
+
 
         const formElementsArray = [];
         for( let key in this.state.controls ) {
@@ -138,26 +143,61 @@ class Auth extends Component {
         }
 
         return (
-            <Row>
-                <Col xs={2}/>
-                <Col xs={8}>
-                    <Jumbotron>
+            <>
+                <Button onClick={() => this.setState({ modalShow: true })} variant="primary" >Sign in</Button>
+
+                <Modal
+                    show={this.state.modalShow}
+                    onHide={this.modalClose}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            {this.state.isSignup ? 'Sign Up' : 'Sign In'}
+                        </Modal.Title>
+                    </Modal.Header>
+
+                    <Modal.Body>
                         <Row>
                             <Col xs={2}/>
                             <Col xs={8}>
                                 {errorMessage}
-                                <form onSubmit={this.submitHandler}>
+                                <form>
                                     {form}
-                                    <Button variant="primary" type="submit" disabled={!this.state.formIsValid}>{this.state.isSignup ? 'Create New User' : 'Log In'}</Button>
                                 </form>
-                                <Button variant="secondary" onClick={this.switchAuthModeHandler}>Switch to {this.state.isSignup ? 'Sign in' : 'Sign up'}</Button>
                             </Col>
                             <Col xs={2}/>
                         </Row>
-                    </Jumbotron>
-                </Col>
-                <Col xs={2}/>
-            </Row>
+                        <Row>
+                            <Col xs={3}/>
+                            <Col xs={3}>
+                                <Button
+                                    variant="primary"
+                                    type="submit"
+                                    disabled={!this.state.formIsValid}
+                                    onClick={this.submitHandler}>
+                                        {this.state.isSignup ? 'Create New User' : 'Log In'}
+                                </Button>
+                            </Col>
+                            <Col xs={3}>
+                                <Button
+                                    variant="secondary"
+                                    onClick={this.switchAuthModeHandler}>
+                                        Switch to {this.state.isSignup ? 'Sign in' : 'Sign up'}
+                                </Button>
+                            </Col>
+                            <Col xs={3}/>
+                        </Row>
+
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.modalClose}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
+
+            </>
         );
     }
 }
