@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Jumbotron from 'react-bootstrap/Jumbotron';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+
 import Input from '../../components/UI/Forms/Input/Input';
 import Loading from '../../components/UI/Loading/Loading';
-
 import * as actions from '../../store/actions/index';
 class Auth extends Component {
 
@@ -107,20 +111,18 @@ class Auth extends Component {
             })
         }
 
+
         let form = (formElementsArray.map(formElement => (
-            <div>
-                <p>{formElement.config.placeholder}</p>
-                <Input
-                    className="form-control"
-                    key={formElement.id}
-                    elementType={formElement.config.elementType}
-                    elementConfig={formElement.config.elementConfig}
-                    value={formElement.config.value}
-                    invalid={!formElement.config.valid}
-                    shouldValidate={formElement.config.validation}
-                    touched={formElement.config.touched}
-                    changed={(event) => this.inputChangedHandler(event, formElement.id)} />
-            </div>
+            <Input
+                className="form-control"
+                key={formElement.id}
+                elementType={formElement.config.elementType}
+                elementConfig={formElement.config.elementConfig}
+                value={formElement.config.value}
+                invalid={!formElement.config.valid}
+                shouldValidate={formElement.config.validation}
+                touched={formElement.config.touched}
+                changed={(event) => this.inputChangedHandler(event, formElement.id)} />
         )))
 
         if(this.props.loading) {
@@ -136,18 +138,26 @@ class Auth extends Component {
         }
 
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-sm-8">
-                        {errorMessage}
-                        <form onSubmit={this.submitHandler}>
-                            {form}
-                            <button className="btn btn-primary" disabled={!this.state.formIsValid}>{this.state.isSignup ? 'Create New User' : 'Log In'}</button>
-                        </form>
-                        <button className="btn btn-secondary" onClick={this.switchAuthModeHandler} >Switch to {this.state.isSignup ? 'Sign in' : 'Sign up'}</button>
-                    </div>
-                </div>
-            </div>
+            <Row>
+                <Col xs={2}/>
+                <Col xs={8}>
+                    <Jumbotron>
+                        <Row>
+                            <Col xs={2}/>
+                            <Col xs={8}>
+                                {errorMessage}
+                                <form onSubmit={this.submitHandler}>
+                                    {form}
+                                    <Button variant="primary" type="submit" disabled={!this.state.formIsValid}>{this.state.isSignup ? 'Create New User' : 'Log In'}</Button>
+                                </form>
+                                <Button variant="secondary" onClick={this.switchAuthModeHandler}>Switch to {this.state.isSignup ? 'Sign in' : 'Sign up'}</Button>
+                            </Col>
+                            <Col xs={2}/>
+                        </Row>
+                    </Jumbotron>
+                </Col>
+                <Col xs={2}/>
+            </Row>
         );
     }
 }

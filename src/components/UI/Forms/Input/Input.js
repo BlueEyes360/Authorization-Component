@@ -5,10 +5,10 @@ const input = (props) => {
 
     let inputElement = null;
 
-    let inputClasses = "InputElement";
+    let inputClasses = "form-control";
 
     if (props.invalid && props.shouldValidate && props.touched) {
-        inputClasses = "Invalid InputElement";
+        inputClasses = "Invalid form-control";
     }
 
     switch ( props.elementType ) {

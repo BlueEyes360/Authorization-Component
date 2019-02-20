@@ -2,9 +2,8 @@
     position: fixed;
     height: 10vh;
     bottom: 45vh;
-    left: 45vw;
+    left: calc(50vw - 5vh);
     padding: 1vmin;
-    float: center;
 }
 
 .LoadingCard {
@@ -12,7 +11,7 @@
     height: 14vh;
     width: 14vh;
     bottom: 43vh;
-    left: 43vw;
+    left: calc(50vw - 7vh);
     background-color: lightgray;
     border-radius: 2vmin;
     opacity: .8;
@@ -23,7 +22,7 @@
 
 .LoadingCard p {
     justify-content: center;
-    margin: 40% 30%;
+    margin: 40% 25%;
 }
 
 #FastSpinning {
@@ -43,17 +42,4 @@
 
 #BottomLoading {
     z-index: 1;
-}
-
-.visible {
-    visibility: visible;
-}
-
-.hidden {
-    visibility: hidden;
-}
-
-#LoadingImage {
-    /* display: none; */
-    visibility: none;
 }
