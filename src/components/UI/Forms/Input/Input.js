@@ -1,15 +1,10 @@
 import React from 'react';
-import './Input.css';
 
 const input = (props) => {
 
     let inputElement = null;
 
     let inputClasses = "form-control";
-
-    if (props.invalid && props.shouldValidate && props.touched) {
-        inputClasses = "Invalid form-control";
-    }
 
     switch ( props.elementType ) {
         case ( 'input' ):

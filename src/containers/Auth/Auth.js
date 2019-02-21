@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
@@ -10,6 +9,7 @@ import Modal from 'react-bootstrap/Modal';
 import Input from '../../components/UI/Forms/Input/Input';
 import Loading from '../../components/UI/Loading/Loading';
 import * as actions from '../../store/actions/index';
+
 class Auth extends Component {
 
     state = {
@@ -26,7 +26,8 @@ class Auth extends Component {
                     isEmail: true
                 },
                 valid: false,
-                touched: false
+                touched: false,
+                label: 'E-mail Address'
             },
             password: {
                 elementType: 'input',
@@ -40,7 +41,8 @@ class Auth extends Component {
                     minLength: 6
                 },
                 valid: false,
-                touched: false
+                touched: false,
+                label: 'Password'
             }
         },
         formIsValid: false,
@@ -112,14 +114,15 @@ class Auth extends Component {
         for( let key in this.state.controls ) {
             formElementsArray.push({
                 id: key,
-                config: this.state.controls[key]
+                config: this.state.controls[key],
+                label: this.state.controls[key].label
             })
         }
 
 
         let form = (formElementsArray.map(formElement => (
             <Input
-                className="form-control"
+                label={formElement.label}
                 key={formElement.id}
                 elementType={formElement.config.elementType}
                 elementConfig={formElement.config.elementConfig}
@@ -142,10 +145,15 @@ class Auth extends Component {
             );
         }
 
+        let button = <Button onClick={() => this.setState({ modalShow: true })} variant="primary" disabled={this.props.token !== null} >Sign in</Button>;
+
+        if(this.props.token !== null) {
+            button = <Button onClick={this.props.onLogout} variant="danger" >Log Out</Button>
+        }
+
         return (
             <>
-                <Button onClick={() => this.setState({ modalShow: true })} variant="primary" >Sign in</Button>
-
+                {button}
                 <Modal
                     show={this.state.modalShow}
                     onHide={this.modalClose}
@@ -170,12 +178,12 @@ class Auth extends Component {
                             </Col>
                             <Col xs={2}/>
                         </Row>
-                        <Row>
+                        <Row className="pt-sm-2">
                             <Col xs={3}/>
                             <Col xs={3}>
-                                <Button
+                                <Button className='h-100 w-100'
                                     variant="primary"
-                                    type="submit"
+                                    // type="submit"
                                     disabled={!this.state.formIsValid}
                                     onClick={this.submitHandler}>
                                         {this.state.isSignup ? 'Create New User' : 'Log In'}
@@ -193,7 +201,6 @@ class Auth extends Component {
 
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={this.modalClose}>Close</Button>
                     </Modal.Footer>
                 </Modal>
 
@@ -205,13 +212,15 @@ class Auth extends Component {
 const mapStateToProps = state => {
     return {
         loading: state.auth.loading,
-        error: state.auth.error
+        error: state.auth.error,
+        token: state.auth.token
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup))
+        onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
+        onLogout: () => dispatch(actions.logout())
     }
 }
 
