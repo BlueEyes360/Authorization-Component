@@ -149,7 +149,12 @@ class Auth extends Component {
 
         if(this.props.token !== null) {
             button = <Button onClick={this.props.onLogout} variant="danger" >Log Out</Button>
+            if(this.state.modalShow === true) {
+                this.modalClose();
+            }
         }
+
+
 
         return (
             <>
